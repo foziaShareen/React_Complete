@@ -1,55 +1,61 @@
+import React, { Component } from 'react';
 
-import { Component } from 'react';
+import CardList from './components/card-list/card-list.component';
+
 import './App.css';
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      codersList: [],
-      filteredList:''
-      
-      
-      
-       }
-    
+
+    this.state = {   
+      coders: [],
+      searchField: ''
+    };
   }
+
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-    .then((users)=>this.setState(()=>{return{codersList:users}}))
-      
-  }  
-  whenChange=(event) => {
-           
-            
-            const filteredList = event.target.value.toLocaleLowerCase();
-            
-           
-            this.setState(() => { return { filteredList } ;
-            }
-            )
-        }
-  
-  render() {
-    const { codersList, filteredList } = this.state;
-    const { whenChange } = this;
-
-     const givenName = codersList.filter((coder) => {
-              return coder.name.toLocaleLowerCase().includes(filteredList)
-            })
-    return (
-      <div className="App">
-        <input type="search" className='search_coder' placeholder='name'
-          onChange={whenChange}
-        />  
-        
-        {givenName.map((coder) => {
-          return <h1 key={coder.id}>{ coder.name}</h1>
-        })}  
-      </div>
-    )
+      .then(response => response.json())
+      .then(users => this.setState({ coders: users }));
   }
-}  
- 
-export default App;
 
+  onSearchChange = event => {
+    this.setState({ searchField: event.target.value });
+  };
+
+  render() {
+    const { coders, searchField } = this.state;
+    const { onSearchChange } = this;
+    const filteredCoders = coders.filter(coder =>
+      coder.name.toLowerCase().includes(searchField.toLowerCase())
+    );
+    
+  
+
+    return (
+
+      <div className='App'>
+        <input
+          className='search-box'
+          type='search'
+          placeholder='search coders'
+          onChange={onSearchChange}
+        />
+        {/* {filteredCoders.map((coder) => {
+          return (
+            <div>
+              {coder.name}
+            </div>
+          )
+        })} */}
+        <br></br>
+        <CardList coders={filteredCoders} />
+        
+        
+      </div>
+    );
+  }
+}
+
+export default App;
