@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import CardList from './components/card-list/card-list.component';
-import SearchBox from './components/search-box/search-box.component';
+import SearchBox from './components/search box/search box';
 
 import './App.css';
 
@@ -46,8 +46,8 @@ class App extends Component {
           )
         })} */}
         
-        <br></br>  
-        <SearchBox placeholder={ 'search user'} className={'search box'} onChangeHandler={onSearchChange}/>
+        <br></br> 
+        <SearchBox className={'search box' } placeholder={'user name'} onChangeHandler={onSearchChange} />
         <CardList coders={filteredCoders} />
         
         

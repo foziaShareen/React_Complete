@@ -4,10 +4,17 @@ class CardList extends Component{
         // console.log(this)
         const { coders } = this.props;
         return (
-            <div>
+            <div className="card-list">
                 {coders.map((coder) => {
                     return (
-                        <h1 key={coder.id}>{ coder.name}</h1>
+                        <div className="container" key={coder.id}>
+                            <img alt={` coder ${coder.name}`}
+                                src={`https://robohash.org/${coder.id}?set=set5&size=180x180`} />
+                            <h2>{coder.name}</h2>
+                            <p>{ coder.email}</p>
+                            
+                        </div>
+                            
                     )
                 })}
                
